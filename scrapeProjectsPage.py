@@ -12,7 +12,7 @@ with open('scrape_output.csv', 'w') as file:
     for match in match_results:
         match_content = match.group()
         pattern = 'time-spent=\".*\"'
-        time_spent = re.search(pattern, match_content,re.IGNORECASE).group()
+        time_spent = re.search(pattern, match_content, re.IGNORECASE).group()
         time_spent = re.sub("(time-spent=\")|\"", "", time_spent)
         match_content = re.sub("<(div|a).*?class=\".*?project(?!-container).*?\".*?>", "", match_content)
         link_pattern = "<.*?href=\".*?\".*?>.*?</.*?>"
@@ -28,6 +28,7 @@ with open('scrape_output.csv', 'w') as file:
                 line = line.strip() + " " + time_spent + "+ hours"
             text = ""
             text = line.strip()
+            text = text.replace("\"", "\"\"")
             if (text != ""):
                 match_content += "\"" + text + "\","
         if ("!link-here!") in match_content:
