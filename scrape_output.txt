@@ -28,6 +28,17 @@ it updates appropriately on different devices and resolutions. After this projec
 and I am planning on learning and implementing other web technologies in the future to this website and others. To read more
 about this project, click on this box to go to the "About" page.
 
+Portfolio Scraper - Python
+Main focus: Web scraping
+Approximate time spent: 2+ hours
+It's been a while since I've done a python project, and I wanted to extend on my portfolio project in an interesting way. I decided to
+start learning web scraping in order to parse the information for each of my projects into a text file. I'm planning on making a way to reconstruct
+the project cards as well, which will allow for the possible applications of databases to my site in the future.
+How it works
+I filtered through my HTML code using Python, removing all of the tags and making sure that critical data remains intact. Each time the code is run, the
+program accesses my site at that exact moment in time and scrapes it. At the time I created the program initially, this card did not exist, and I was able to
+use it in testing later without changing anything!
+
 Inventory Management - Java
 Main focus: Database manipulation
 Approximate time spent: 8+ hours
