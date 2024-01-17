@@ -114,4 +114,4 @@ a pair of users that have not been registered as friends, and are not the same p
 node in the graph structure, and an undirected edge is constructed between users who are friends. Dijkstra's algorithm is
 used to find the shortest path between two friends (think of it as a chain of mutual friends,
 or how !link-here! work), and data is displayed in the console.
-Links used:<a href="https://oracleofbacon.org/">Bacon numbers</a>
+Links used: https://oracleofbacon.org/ with text: "Bacon numbers"

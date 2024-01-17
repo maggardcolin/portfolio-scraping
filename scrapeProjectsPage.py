@@ -8,7 +8,7 @@ html = html_bytes.decode("utf-8")
 pattern = '<(div|a).*?class=\".*?project(?!-container).*?\".*?>(\n.*?)*</(div|a).*?>\n'
 match_results = re.finditer(pattern, html, re.IGNORECASE)
 match_count = 0
-with open('output.txt', 'w') as file:
+with open('scrape_output.txt', 'w') as file:
     for match in match_results:
         match_content = match.group()
         pattern = 'time-spent=\".*\"'
@@ -34,7 +34,10 @@ with open('output.txt', 'w') as file:
         if ("!link-here!") in match_content:
             match_content += "Links used:"
             for link in link_list:
-                match_content += link_list[link_count].group()
+                link_content = re.sub("(\">)", " with text: \"", link_list[link_count].group())
+                link_content = re.sub("(</a.*?>)", "", link_content)
+                link_content = re.sub("(<a.*?href=\")", " ", link_content)
+                match_content += link_content + "\""
                 link_count += 1
         file.write(match_content + "\n")
         match_count += 1
