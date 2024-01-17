@@ -1,14 +1,15 @@
 import re #regular expressions
 from urllib.request import urlopen
-url = "https://maggardcolin.github.io/projects.html"
-page = urlopen(url)
-html_bytes = page.read()
-html = html_bytes.decode("utf-8")
 
-pattern = '<(div|a).*?class=\".*?project(?!-container).*?\".*?>(\n.*?)*</(div|a).*?>\n'
-match_results = re.finditer(pattern, html, re.IGNORECASE)
-match_count = 0
 with open('scrape_output.csv', 'w') as file:
+    url = "https://maggardcolin.github.io/projects.html"
+    page = urlopen(url)
+    html_bytes = page.read()
+    html = html_bytes.decode("utf-8")
+
+    pattern = '<(div|a).*?class=\".*?project(?!-container).*?\".*?>(\n.*?)*</(div|a).*?>\n'
+    match_results = re.finditer(pattern, html, re.IGNORECASE)
+    match_count = 0
     for match in match_results:
         match_content = match.group()
         pattern = 'time-spent=\".*\"'
@@ -22,7 +23,6 @@ with open('scrape_output.csv', 'w') as file:
         relevance = re.sub("relevance=", "", relevance)
         chron_order = re.search("chron-order=\".*?\"", information).group()
         chron_order = re.sub("chron-order=", "", chron_order)
-        print(chron_order)
         match_content = re.sub("<(div|a).*?class=\".*?project(?!-container).*?\".*?>", "", match_content)
         link_pattern = "<.*?href=\".*?\".*?>.*?</.*?>"
         links = re.finditer(link_pattern, match_content)
@@ -34,7 +34,7 @@ with open('scrape_output.csv', 'w') as file:
         match_content = ""
         for line in lines:
             if ("Approximate time spent:") in line.strip():
-                line = line.strip() + " " + time_spent + "+ hours"
+                line = line.strip() + " " + time_spent
             text = ""
             text = line.strip()
             text = text.replace("\"", "\"\"")
