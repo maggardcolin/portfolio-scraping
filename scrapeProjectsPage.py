@@ -45,6 +45,10 @@ with open('scrape_output.csv', 'w') as file:
             match_content = re.sub("<.*?>", "", match_content)
             lines = match_content.splitlines()
             match_content = ""
+            match_content += classes + "," + relevance + "," + chron_order + ","
+            match_count += 1
+            if match_count == 1:
+                file.write(url + "\n")
             for line in lines:
                 if ("Approximate time spent:") in line.strip():
                     line = line.strip() + " " + time_spent
@@ -61,9 +65,5 @@ with open('scrape_output.csv', 'w') as file:
                     link_content = re.sub("(<a.*?href=\")", " \"\"", link_content)
                     match_content += link_content + "\"\"\""
                     link_count += 1
-            match_content += classes + "," + relevance + "," + chron_order
-            match_count += 1
-            if match_count == 1:
-                file.write(url + "\n")
             file.write(match_content + "\n")
         print(str(match_count) + ' matches found')
