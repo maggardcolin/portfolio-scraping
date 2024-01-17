@@ -32,12 +32,12 @@ with open('scrape_output.csv', 'w') as file:
             if (text != ""):
                 match_content += "\"" + text + "\","
         if ("!link-here!") in match_content:
-            match_content += "Links used:"
+            match_content += "\"Links used:"
             for link in link_list:
-                link_content = re.sub("(\">)", " with text: \"", link_list[link_count].group())
+                link_content = re.sub("(\">)", "\"\" with text: \"\"", link_list[link_count].group())
                 link_content = re.sub("(</a.*?>)", "", link_content)
-                link_content = re.sub("(<a.*?href=\")", " ", link_content)
-                match_content += link_content + "\""
+                link_content = re.sub("(<a.*?href=\")", " \"\"", link_content)
+                match_content += link_content + "\"\"\""
                 link_count += 1
         file.write(match_content + "\n")
         match_count += 1
