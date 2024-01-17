@@ -14,6 +14,15 @@ with open('scrape_output.csv', 'w') as file:
         pattern = 'time-spent=\".*\"'
         time_spent = re.search(pattern, match_content, re.IGNORECASE).group()
         time_spent = re.sub("(time-spent=\")|\"", "", time_spent)
+        pattern = ("<(div|a).*?class=\".*?project(?!-container).*?\".*?>")
+        information = re.search(pattern, match_content).group()
+        classes = re.search("class=\".*?\"", information).group()
+        classes = re.sub("class=", "", classes)
+        relevance = re.search("relevance=\".*?\"", information).group()
+        relevance = re.sub("relevance=", "", relevance)
+        chron_order = re.search("chron-order=\".*?\"", information).group()
+        chron_order = re.sub("chron-order=", "", chron_order)
+        print(chron_order)
         match_content = re.sub("<(div|a).*?class=\".*?project(?!-container).*?\".*?>", "", match_content)
         link_pattern = "<.*?href=\".*?\".*?>.*?</.*?>"
         links = re.finditer(link_pattern, match_content)
@@ -39,6 +48,7 @@ with open('scrape_output.csv', 'w') as file:
                 link_content = re.sub("(<a.*?href=\")", " \"\"", link_content)
                 match_content += link_content + "\"\"\""
                 link_count += 1
+        match_content += classes + "," + relevance + "," + chron_order
         file.write(match_content + "\n")
         match_count += 1
     print(str(match_count) + ' matches found')
